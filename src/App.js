@@ -3,9 +3,13 @@ import TextForm from "./Components/TextForm";
 import "./App.css";
 
 function App() {
+
   
   return (
-    <Navbar/>
+    <>
+    <Navbar />
+    <TextForm/>
+    </>
   );
 }
 
