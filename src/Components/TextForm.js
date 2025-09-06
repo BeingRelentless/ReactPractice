@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Comments from "./Comments";
 
 function TextForm() {
-  const [text, setText] = useState(() =>{
+  const [text, setText] = useState(() => {
     return localStorage.getItem("text") || "Enter the text to analyze below";
   });
 
   const [comments, setComments] = useState(() => {
-    return localStorage.getItem("comments") || [];
+    return JSON.parse(localStorage.getItem("comments")) || [];
   });
 
   const handleOnChange = (event) => {
@@ -21,13 +21,19 @@ function TextForm() {
 
   //   save comments to localStorage
   const handleComments = () => {
-    let newComments = [...comments, ...text];
-    // setComments(newComments);
-    setComments([...comments, text]);
-    localStorage.setItem("comments", newComments);
+    let newComments = [...comments, text];
+    setComments(newComments);
+
+    localStorage.setItem("comments", JSON.stringify(newComments));
     setText("");
   };
-  
+
+  const handleDeleteComment = (index) => {
+    const updated = comments.filter((_, i) => i !== index);
+    setComments(updated);
+    localStorage.setItem("comments", JSON.stringify(updated));
+  };
+
   const toLocalStorage = () => {
     localStorage.setItem("text", text);
   };
@@ -36,7 +42,6 @@ function TextForm() {
     toLocalStorage();
   }, [text]);
 
-  
   return (
     <>
       <div className="container">
@@ -57,7 +62,7 @@ function TextForm() {
           <button className="btn btn-primary mt-3" onClick={handleComments}>
             Save comments
           </button>
-          <Comments arr={comments} />
+          <Comments arr={comments} onDelete={handleDeleteComment} />
         </div>
       </div>
     </>
