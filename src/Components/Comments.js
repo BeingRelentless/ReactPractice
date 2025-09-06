@@ -1,6 +1,7 @@
 import React from "react";
 import CommentsCard from "./CommentsCard";
 
+
 function Comments({ arr, onDelete }) {
   return (
     <>

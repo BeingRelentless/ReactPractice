@@ -23,7 +23,6 @@ function TextForm() {
   const handleComments = () => {
     let newComments = [...comments, text];
     setComments(newComments);
-
     localStorage.setItem("comments", JSON.stringify(newComments));
     setText("");
   };
@@ -31,7 +30,6 @@ function TextForm() {
   const handleDeleteComment = (index) => {
     const updated = comments.filter((_, i) => i !== index);
     setComments(updated);
-    localStorage.setItem("comments", JSON.stringify(updated));
   };
 
   const toLocalStorage = () => {
@@ -41,6 +39,10 @@ function TextForm() {
   useEffect(() => {
     toLocalStorage();
   }, [text]);
+
+  useEffect(() => {
+    localStorage.setItem("comments", JSON.stringify(comments));
+  }, [comments]);
 
   return (
     <>
@@ -56,7 +58,7 @@ function TextForm() {
           >
             Enter text here
           </textarea>
-          <button className="btn btn-primary mt-3" onClick={handleUpClick}>
+          <button className="btn btn-primary mt-3 mx-4" onClick={handleUpClick}>
             Convert to UPPERCASE
           </button>
           <button className="btn btn-primary mt-3" onClick={handleComments}>
