@@ -18,7 +18,7 @@ function TextForm() {
     let newText = text.toUpperCase();
     setText(newText);
   };
-  
+
   //   save comments to localStorage
   const handleComments = () => {
     let newComments = [...comments, ...text];
@@ -27,7 +27,7 @@ function TextForm() {
     localStorage.setItem("comments", newComments);
     setText("");
   };
-
+  
   const toLocalStorage = () => {
     localStorage.setItem("text", text);
   };
@@ -36,7 +36,7 @@ function TextForm() {
     toLocalStorage();
   }, [text]);
 
-
+  
   return (
     <>
       <div className="container">
